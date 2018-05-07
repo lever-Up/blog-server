@@ -1,0 +1,17 @@
+{
+  "article": {
+    "id": "int primary key not null",
+    "title": "varchar(255)",
+    "secTitle": "varchar(255)",
+    "userId": "int",
+    "createTime": "datetime",
+    "content": "text",
+    "categoryId": "int"
+  },
+  "category": {
+    "id": "int primary key not null",
+    "name": "varchar(255)",
+    "pid": "int",
+    "remark": "varchar(255)"
+  }
+}

@@ -1,20 +1,11 @@
 const express = require('express');
-const mysql  = require('mysql');
-const db = require('./src/base/db.json');
-
+const sqlext = require('./src/base/sqlext');
+const SqlExt = new sqlext();
 const blog = require('./src/blog');
 
-const app = express();
+SqlExt.init();
 
-//mysql数据库
-global.mysqlPool = mysql.createPool({
-    host     : db.host,
-    user     : db.user,
-    password : db.password,
-    port: '3306',
-    database: db.database,
-    multipleStatements: true,
-});
+const app = express();
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

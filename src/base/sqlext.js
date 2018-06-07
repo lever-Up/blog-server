@@ -22,7 +22,15 @@ class SqlExt {
             fields = Object.keys(arr).map( field => `${field} ${arr[field]}`);
             sql = `CREATE TABLE IF NOT EXISTS ${key} (${fields.join(',')})`;
             this.exec(sql);
-        })
+        });
+        setTimeout(()=>{
+            this.exec('select count(*) as count from admin').then(ret => {
+                if( ret[0].count == 0 ) {
+                    //创建超管帐号
+                    this.exec("insert into admin(name,password,level) values('admin','123',0)").catch(e=> console.log(e))
+                }
+            })
+        }, 200)
     }
 
     exec(sql, values) {
@@ -30,7 +38,7 @@ class SqlExt {
             this.mysqlPool.getConnection( (error, connection) => {
                 connection.query(sql, values, function(err, results) {
                     if(err) {
-                        reject({status:500, msg: '查询语句异常'})
+                        reject({status:500, msg: err})
                     }
                     resolve(results);
                 });

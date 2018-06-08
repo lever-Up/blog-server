@@ -1,7 +1,7 @@
 const Factory = require('../base/factory');
 
 const ArticleService = {
-    queryList: () => {
+    queryList: (response) => {
 
     },
     //获取文章信息

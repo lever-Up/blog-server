@@ -8,8 +8,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const app = express();
 
 /*获取博客列表*/
-app.get('/', (req, res) => {
-    ArticleService.getArticle(res, 1);
+app.get('/:id', (req, res) => {
+    ArticleService.getArticle(res, req.param.id);
 });
 
 module.exports = app;

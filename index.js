@@ -22,7 +22,7 @@ app.get("/", function(req, res) {
 });
 
 app.listen(8098, () => {
-    console.log('Magic happens on port 8098');
+    console.log('to open: http://localhost:8098');
 });
 
 module.exports = app;

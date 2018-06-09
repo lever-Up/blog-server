@@ -9,6 +9,11 @@ body {
     margin: 8px;
     border: solid 1px #e6e6e6;
     border-radius: 6px;
+    box-shadow: 0 0 1px #bbb;
+}
+.box:hover {
+    border-color: #b8def5;
+    box-shadow: 0 0 1px #3bdaff;
 }
 .box-title {
     padding: 8px 15px;
@@ -20,38 +25,66 @@ body {
 
 }
 .box-list .item{
-
+    padding: 15px;
 }
 .box-list .item .title{
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px #eee;
+    padding: 0 0 6px 15px;
 }
 .box-list .item .title .path{
-
+    font-weight: 600;
 }
 .box-list .item .title .desc{
-
+    color: #999;
 }
 .box-list .item .params{
-
+    padding: 8px 0 8px 24px;
 }
 .box-list .item .params .label{
 
 }
 .box-list .item .params .table{
-
+    display: table;
+    width: 100%;
+    box-sizing: border-box;
 }
 .box-list .item .params .table-head{
-
+    text-align: center;
+    border: solid 1px #ddd;
+    background-color: #f1f1f1;
+}
+.box-list .item .params .table-head > div {
+    border-right: solid 1px #ddd;
+}
+.box-list .item .params .table-head > div:last-child {
+    border-right: none;
 }
 .box-list .item .params .table > div{
-
+    display: table-cell;
+    box-sizing: border-box;
+    padding: 3px 5px;
+}
+.box-list .item .params .table > div:nth-child(1),
+.box-list .item .params .table > div:nth-child(2) {
+    width: 22%;
+    text-align: center;
+}
+.box-list .item .params .table:not(.table-head) > div {
+    border-bottom: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+}
+.box-list .item .params .table:not(.table-head) > div:first-child {
+    border-left: solid 1px #ddd;
 }
 .box-list .item .response{
-
-}
-.box-list .item .response .label{
-
+    padding: 8px 0 0 24px;
 }
 .box-list .item .response .data{
-
+    border: solid 1px #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
 }

@@ -15,29 +15,31 @@
         <div class="box-list">
             <% for(var i=0; i< obj.list.length; i++) { var item = obj.list[i]; %>
             <div class="item">
-                <div class="title">
+                <div class="title interface_path">
                     <span class="path"><%=item.path %></span>
                     <span class="desc"><%=item.desc %></span>
                 </div>
-                <% if ( item.params && item.params.length > 0 ) { %>
-                <div class="params">
-                    <div class="label">参数：</div>
-                    <div class="table table-head">
-                        <div>参数</div><div>名称</div><div>参数方式</div><div>描述</div>
-                    </div>
-                    <% for(var k=0; k< item.params.length; k++) { var param = item.params[k]; %>
-                    <div class="table">
-                        <div><%=param.key %></div>
-                        <div><%=param.name %></div>
-                        <div><%=param.way %></div>
-                        <div><%=param.desc %></div>
+                <div class="interface_info">
+                    <% if ( item.params && item.params.length > 0 ) { %>
+                    <div class="params">
+                        <div class="label">参数：</div>
+                        <div class="table table-head">
+                            <div>参数</div><div>名称</div><div>参数方式</div><div>描述</div>
+                        </div>
+                        <% for(var k=0; k< item.params.length; k++) { var param = item.params[k]; %>
+                        <div class="table">
+                            <div><%=param.key %></div>
+                            <div><%=param.name %></div>
+                            <div><%=param.way %></div>
+                            <div><%=param.desc %></div>
+                        </div>
+                        <% } %>
                     </div>
                     <% } %>
-                </div>
-                <% } %>
-                <div class="response">
-                    <div class="label">请求成功返回：</div>
-                    <div class="data"><pre><%=obj.list[i].data %></pre></div>
+                    <div class="response">
+                        <div class="label">请求成功返回：</div>
+                        <div class="data"><pre><%=obj.list[i].data %></pre></div>
+                    </div>
                 </div>
             </div>
             <% } %>

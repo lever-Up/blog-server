@@ -35,4 +35,15 @@ function template (data, tplStr, opt) {
         $app.append(template(interfaceData[i], $itemTpl.html()))
     }
 
+    $app.on('click', '.interface_path', function(){
+        if( $(this).hasClass('active') ) {
+            $(this).removeClass('active');
+            $(this).parent().find('.interface_info').hide();
+        }else{
+            $(this).addClass('active');
+            $(this).parent().find('.interface_info').show();
+            $(this).parent().siblings().find('.interface_info').hide()
+        }
+    })
+
 })();

@@ -31,6 +31,8 @@ function template (data, tplStr, opt) {
 
     var $app = $('#app'), $itemTpl = $('#itemTpl');
 
-    
+    for(var i=0; i<interfaceData.length; i++) {
+        $app.append(template(interfaceData[i], $itemTpl.html()))
+    }
 
 })();

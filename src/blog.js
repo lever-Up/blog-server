@@ -7,9 +7,14 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 const app = express();
 
-/*获取博客列表*/
+// 博客列表
+app.get('/', (req, res) => {
+    ArticleService.queryList(req, res);
+});
+
+// 获取博客信息
 app.get('/:id', (req, res) => {
-    ArticleService.getArticle(res, req.param.id);
+    ArticleService.getArticle(req, res, req.param.id);
 });
 
 module.exports = app;

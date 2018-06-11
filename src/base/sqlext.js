@@ -27,7 +27,16 @@ class SqlExt {
             this.exec('select count(*) as count from admin').then(ret => {
                 if( ret[0].count == 0 ) {
                     //创建超管帐号
-                    this.exec("insert into admin(name,password,level) values('admin','123',0)").catch(e=> console.log(e))
+                    let ads = [
+                        { name:'admin', password:'123', level:0 }
+                    ];
+                    let sqls = [];
+                    ads.map( d => {
+                        let fields = Object.keys(d).map( field => field);
+                        let values = Object.values(d).map( v => `'${v}'`);
+                        sqls.push(`insert into admin(${fields.join(',')}) values(${values.join(',')})`)
+                    });
+                    this.exec(sqls.join(';')).then( data => console.log(data.insertId) ).catch(e=> console.log(e))
                 }
             })
         }, 200)

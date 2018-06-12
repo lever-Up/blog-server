@@ -1,18 +1,25 @@
 var path = require('path');
-// var path = path.resolve(__dirname,'dist');
 
 module.exports = {
-    entry: "./index.js",
+    entry: path.resolve(__dirname, "./index.js"),
     output: {
-        path: __dirname + '/dist/',
-        filename: "bundle.js",
+        path: path.resolve(__dirname, "./build"),
+        filename: "js/[name].bundle.js",
         publicPath: '/'
     },
     module: {
         loaders: [{
             test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
+            exclude: /(node_modules)/,
+            use: [
+                {
+                    loader: "babel-loader",
+                    options: {
+                        presets: [["es2015", { modules: false }]],
+                        plugins: ["syntax-dynamic-import"]
+                    }
+                }
+            ]
         }]
     },
     node: {

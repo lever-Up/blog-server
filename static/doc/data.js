@@ -1,7 +1,7 @@
 var interfaceData = [
     {
         rootPath: '/blog',
-        desc: '',
+        desc: '博文相关接口',
         list: [
             {
                 path: '/blog',

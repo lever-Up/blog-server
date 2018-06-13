@@ -2,6 +2,9 @@ const mysql  = require('mysql');
 const tables = require('./tables.json');
 const db = require('./db.json');
 
+/**
+ * 数据库设置、初始化
+ */
 class SqlExt {
 
     constructor(props) {

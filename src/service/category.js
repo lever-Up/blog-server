@@ -1,12 +1,12 @@
 const Factory = require('../base/factory');
 
-const tb_name = 'article';   // 表名
+const tb_name = 'category';   // 表名
 
 /**
  * 文章类接口
  */
-const ArticleService = {
-    //文章列表
+const CategoryService = {
+    // 类目列表
     queryList: (req, res) => {
         let uid = Factory.getUid(req);
         if( uid ) {
@@ -17,8 +17,8 @@ const ArticleService = {
             res.send(Factory.responseError('uid为空'))
         }
     },
-    //获取文章信息
-    getArticle: (req, res, id) => {
+    //获取类目信息
+    getCategory: (req, res, id) => {
         if(id) {
             Factory.get(tb_name, id).then( data => {
                 res.send(Factory.responseSuccess(data))
@@ -27,8 +27,8 @@ const ArticleService = {
             res.send(Factory.responseError('id为空'))
         }
     },
-    //添加文章
-    addArticle: (req, res, params) => {
+    //添加类目
+    addCategory: (req, res, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
             params.uid = uid;
@@ -45,8 +45,8 @@ const ArticleService = {
             res.send(Factory.responseError('uid为空'))
         }
     },
-    // 修改文章
-    modifyArticle: (req, res, id, params) => {
+    // 修改类目
+    modifyCategory: (req, res, id, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
             Factory.update(tb_name, id, params).then( data => {
@@ -56,8 +56,8 @@ const ArticleService = {
             res.send(Factory.responseError('uid为空'))
         }
     },
-    // 批量删除文章
-    removeArticle: (req, res, ids) => {
+    // 批量删除类目
+    removeCategory: (req, res, ids) => {
         let uid = Factory.getUid(req);
         if( uid ) {
             Factory.remove(tb_name, ids).then( data => {
@@ -69,4 +69,4 @@ const ArticleService = {
     }
 };
 
-module.exports = ArticleService;
+module.exports = CategoryService;

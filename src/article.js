@@ -5,10 +5,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ArticleService = require('./service/article');
 
-// 创建 application/x-www-form-urlencoded 编码解析
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
 const app = express();
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // 博文列表
 app.get('/', (req, res) => {
@@ -21,19 +21,19 @@ app.get('/:id', (req, res) => {
 });
 
 // 添加博文
-app.post('/', urlencodedParser, (req, res) => {
-    console.log(req.body.data);
-    ArticleService.addArticle(req, res, req.body.data)
+app.post('/', (req, res) => {
+    console.log(req.body);
+    ArticleService.addArticle(req, res, req.body)
 });
 
 // 修改博文
-app.post('/:id', urlencodedParser, (req, res) => {
-    ArticleService.modifyArticle(req, res, req.params.id, req.body.data)
+app.post('/:id', (req, res) => {
+    ArticleService.modifyArticle(req, res, req.params.id, req.body)
 });
 
 // 删除 - 批量
-app.del('/batch', urlencodedParser, (req, res) => {
-    ArticleService.removeArticle(req, res, req.body.data)
+app.del('/batch', (req, res) => {
+    ArticleService.removeArticle(req, res, req.body)
 });
 
 // 删除 - 单个

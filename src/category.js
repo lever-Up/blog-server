@@ -5,10 +5,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const CategoryService = require('./service/category');
 
-// 创建 application/x-www-form-urlencoded 编码解析
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
 const app = express();
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // 类目列表
 app.get('/', (req, res) => {
@@ -21,18 +21,18 @@ app.get('/:id', (req, res) => {
 });
 
 // 添加类目
-app.post('/', urlencodedParser, (req, res) => {
+app.post('/', (req, res) => {
     console.log(req.body.data);
     CategoryService.addCategory(req, res, req.body.data)
 });
 
 // 修改类目
-app.post('/:id', urlencodedParser, (req, res) => {
+app.post('/:id', (req, res) => {
     CategoryService.modifyCategory(req, res, req.params.id, req.body.data)
 });
 
 // 删除 - 批量
-app.del('/batch', urlencodedParser, (req, res) => {
+app.del('/batch', (req, res) => {
     CategoryService.removeCategory(req, res, req.body.data)
 });
 

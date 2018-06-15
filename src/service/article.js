@@ -49,8 +49,10 @@ const ArticleService = {
     modifyArticle: (req, res, id, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
-            Factory.update(tb_name, id, params).then( data => {
-                res.send(Factory.responseSuccess(data))
+            Factory.update(tb_name, id, params).then( () => {
+                Factory.get('article', id).then( data => {
+                    res.send(Factory.responseSuccess(data))
+                })
             })
         } else {
             res.send(Factory.responseError('uid为空'))

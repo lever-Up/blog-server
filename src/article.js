@@ -33,8 +33,7 @@ app.post('/:id', (req, res) => {
 
 // 删除 - 批量
 app.delete('/batch', (req, res) => {
-    console.log(req.body)
-    ArticleService.removeArticle(req, res, req.body)
+    ArticleService.removeArticle(req, res, req.body.ids)
 });
 
 // 删除 - 单个

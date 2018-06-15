@@ -6,6 +6,9 @@ const interface_article = require('./src/article');
 const interface_category = require('./src/category');
 const interface_user = require('./src/user');
 
+// 解决response.send的JSON.stringify时对Date数据的处理
+Date.prototype.toJSON = function () { return this.getTime() };
+
 SqlExt.init();
 
 const app = express();

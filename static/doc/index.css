@@ -43,11 +43,11 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 1px #eee;
-    padding: 10px 0 10px 15px;
+    padding: 10px 6px 10px 15px;
     cursor: pointer;
 }
 .box-list .item .title:hover {
-    text-decoration: underline;
+    background-color: #fafafa;
 }
 .box-list .item .title .path{
     font-weight: 600;
@@ -56,10 +56,14 @@ body {
     color: #999;
 }
 .box-list .item .info {
-    padding-bottom: 15px;
+    padding: 8px 0 15px 36px;
+}
+.box-list .item .method {
+    padding: 8px 0;
 }
 .box-list .item .params{
-    padding: 8px 0 8px 24px;
+    /*padding: 8px 0 8px 24px;*/
+    padding-bottom: 8px;
 }
 .box-list .item .params .label{
 
@@ -99,7 +103,7 @@ body {
     border-left: solid 1px #ddd;
 }
 .box-list .item .response{
-    padding: 8px 0 0 24px;
+   /* padding: 8px 0 0 24px;*/
 }
 .box-list .item .response .data{
     border: solid 1px #ddd;

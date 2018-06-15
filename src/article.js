@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 // 获取博文信息
 app.get('/:id', (req, res) => {
-    ArticleService.getArticle(req, res, req.param.id);
+    ArticleService.getArticle(req, res, req.params.id);
 });
 
 // 添加博文
@@ -32,12 +32,13 @@ app.post('/:id', (req, res) => {
 });
 
 // 删除 - 批量
-app.del('/batch', (req, res) => {
+app.delete('/batch', (req, res) => {
+    console.log(req.body)
     ArticleService.removeArticle(req, res, req.body)
 });
 
 // 删除 - 单个
-app.del('/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
     ArticleService.removeArticle(req, res, req.params.id)
 });
 

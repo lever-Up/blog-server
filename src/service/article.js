@@ -61,7 +61,7 @@ const ArticleService = {
         let uid = Factory.getUid(req);
         if( uid ) {
             Factory.remove(tb_name, ids).then( data => {
-                res.send(Factory.responseSuccess('', '删除成功'))
+                res.send(Factory.responseSuccess(ids, '删除成功'))
             })
         } else {
             res.send(Factory.responseError('uid为空'))

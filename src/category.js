@@ -32,12 +32,12 @@ app.post('/:id', (req, res) => {
 });
 
 // 删除 - 批量
-app.del('/batch', (req, res) => {
+app.delete('/batch', (req, res) => {
     CategoryService.removeCategory(req, res, req.body.data)
 });
 
 // 删除 - 单个
-app.del('/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
     CategoryService.removeCategory(req, res, req.params.id)
 });
 

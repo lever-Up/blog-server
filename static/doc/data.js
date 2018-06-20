@@ -23,12 +23,12 @@ var interfaceData = [
         desc: '博文相关接口',
         list: [
             {
-                path: '/blog',
+                path: '/blog/article',
                 method: 'GET',
                 desc: '博文列表',
                 data: resSuccess([articleTemp])
             }, {
-                path: '/blog/[id]',
+                path: '/blog/article/[id]',
                 method: 'GET',
                 desc: '获取博文信息',
                 params: [
@@ -36,7 +36,7 @@ var interfaceData = [
                 ],
                 data: resSuccess(articleTemp)
             }, {
-                path: '/blog',
+                path: '/blog/article',
                 method: 'POST',
                 desc: '添加新的博文',
                 params: [
@@ -46,7 +46,7 @@ var interfaceData = [
                 ],
                 data: resSuccess(articleTemp)
             }, {
-                path: '/blog/[id]',
+                path: '/blog/article/[id]',
                 method: 'POST',
                 desc: '编辑博文信息',
                 params: [
@@ -57,7 +57,7 @@ var interfaceData = [
                 ],
                 data: resSuccess(articleTemp)
             }, {
-                path: '/blog/[id]',
+                path: '/blog/article/[id]',
                 method: 'DELETE',
                 desc: '删除一条博文',
                 params: [
@@ -65,7 +65,7 @@ var interfaceData = [
                 ],
                 data: resSuccess([1])
             }, {
-                path: '/blog/batch',
+                path: '/blog/article/batch',
                 method: 'DELETE',
                 desc: '批量删除博文',
                 params: [
@@ -74,5 +74,9 @@ var interfaceData = [
                 data: resSuccess([1,2,3])
             }
         ]
+    }, {
+        rootPath: '/blog/user',
+        desc: '用户相关接口',
+        list: []
     }
 ];

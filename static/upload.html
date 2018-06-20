@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="file" name="files" id="upload" multiple="multiple">
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#upload').on('change', function() {
+
+        var fileList = this.files,
+            formData = new FormData();
+        Array.prototype.forEach.call(fileList, function (file) {
+            formData.append('files', file)
+        });
+
+        $.ajax({
+            url: 'http://localhost:8098/blog/files/upload',
+            dataType: 'json',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(ret){
+                console.log(ret)
+            }
+        });
+    })
+</script>
+</body>
+</html>

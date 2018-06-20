@@ -22,7 +22,6 @@ app.get('/:id', (req, res) => {
 
 // 添加博文
 app.post('/', (req, res) => {
-    console.log(req.body);
     ArticleService.addArticle(req, res, req.body)
 });
 

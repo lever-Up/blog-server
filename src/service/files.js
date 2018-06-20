@@ -1,46 +1,42 @@
 const qiniu = require('qiniu');
+const fs = require('fs');
+const path = require('path');
 const Factory = require('../base/factory');
-/*
-var accessKey = proc.env.QINIU_ACCESS_KEY;
-var secretKey = proc.env.QINIU_SECRET_KEY;
-var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-var config = new qiniu.conf.Config();
-//config.useHttpsDomain = true;
-//config.zone = qiniu.zone.Zone_z1;
-var bucketManager = new qiniu.rs.BucketManager(mac, config);
-var resUrl = 'http://devtools.qiniu.com/qiniu.png';
-var bucket = proc.env.QINIU_TEST_BUCKET;
-var key = "qiniu.png";
 
-bucketManager.fetch(resUrl, bucket, key, function(err, respBody, respInfo) {
-    if (err) {
-        console.log(err);
-        //throw err;
-    } else {
-        if (respInfo.statusCode == 200) {
-            console.log(respBody.key);
-            console.log(respBody.hash);
-            console.log(respBody.fsize);
-            console.log(respBody.mimeType);
-        } else {
-            console.log(respInfo.statusCode);
-            console.log(respBody);
-        }
-    }
-});*/
+const uploadDir = path.resolve(__dirname, '../../static/uploads');
 
+const accessKey = 'UfBd-GLQDvBP7EGJtPqKcbbs82noj9_RT3bqi4IA';
+const secretKey = 'tvnLr4XPCKxx6MlI2Xuptecgt2yDeCVRLTrSS7hT';
+const bucket = 'blog';
+const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+const options = {
+    scope: bucket,
+}
+const putPolicy = new qiniu.rs.PutPolicy(options);
+const uploadToken = putPolicy.uploadToken(mac);
+const config = new qiniu.conf.Config();
+const formUploader = new qiniu.form_up.FormUploader(config);
+const putExtra = new qiniu.form_up.PutExtra();
 
 /**
  * 文章类接口
  */
 const FileService = {
     upload: (req, res) => {
-
-        let files = req.files;
+        let files = req.files, urls = [];
         files.map( file => {
-
+            formUploader.putFile(uploadToken, file.originalname, file.path, putExtra, function(respErr, respBody, respInfo) {
+                fs.unlink(`${uploadDir}\\${respInfo.data.key}`, ()=>{});
+                if (respErr) {
+                    res.send(Factory.responseError('上传失败'))
+                }
+                let url = `//pamnpeizp.bkt.clouddn.com/${respInfo.data.key}`;
+                urls.push(url);
+                if(urls.length === files.length) {
+                    res.send(Factory.responseSuccess(urls))
+                }
+            });
         });
-        res.send(files)
     }
 };
 

@@ -67,7 +67,7 @@ const Factory = {
     },
     // 查询用户id，从cookie的token里面取 TODO 现在是从header里面取uid
     getUid: (req) => {
-        return req.get('uid')
+        return req.get('uid') || '1256';
     },
     // 封装返回客户端的数据
     responseSuccess: (data, msg='success') => {

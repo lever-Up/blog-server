@@ -19,7 +19,7 @@ function resError(msg='', data='') {
 
 var interfaceData = [
     {
-        rootPath: '/blog',
+        rootPath: '/blog/article',
         desc: '博文相关接口',
         list: [
             {
@@ -72,6 +72,17 @@ var interfaceData = [
                     { key:'ids', name:'博文id列表', way:'body', desc:'如：ids=[1,2,3]' }
                 ],
                 data: resSuccess([1,2,3])
+            }
+        ]
+    }, {
+        rootPath: '/blog/files',
+        desc: '文件相关接口',
+        list: [
+            {
+                path: '/blog/files/upload',
+                method: 'POST',
+                desc: '批量上传，form表单方式',
+                data: resSuccess(['//www.example.com/a.jpg', '//www.example.com/b.jpg'])
             }
         ]
     }, {

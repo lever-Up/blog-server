@@ -36,14 +36,21 @@ function template (data, tplStr, opt) {
     }
 
     $app.on('click', '.interface_path', function(){
-        if( $(this).hasClass('active') ) {
-            $(this).removeClass('active');
-            $(this).parent().find('.interface_info').hide();
-        }else{
-            $(this).addClass('active');
-            $(this).parent().find('.interface_info').show();
-            $(this).parent().siblings().find('.interface_info').hide()
-        }
+        _toggle($(this), '.interface_info')
     })
+    .on('click', '.box-title', function() {
+        _toggle($(this), '.box-list')
+    });
+
+    function _toggle ($obj, cln) {
+        if( $obj.hasClass('active') ) {
+            $obj.removeClass('active');
+            $obj.parent().find(cln).hide()
+        }else{
+            $obj.addClass('active');
+            $obj.parent().find(cln).show();
+            $obj.parent().siblings().find(cln).hide()
+        }
+    }
 
 })();

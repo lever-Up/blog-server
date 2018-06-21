@@ -8,8 +8,8 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // 获取邮箱验证码
-app.get('/code/:email', (req, res) => {
-    UserService.sendMail(req, res, req.params.email)
+app.post('/code', (req, res) => {
+    UserService.sendMail(req, res, req.body.email)
 });
 // 添加用户/注册
 app.post('/add', (req, res) => {

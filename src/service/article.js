@@ -34,7 +34,7 @@ const ArticleService = {
             params.uid = uid;
             Factory.add(tb_name, params).then( ({insertId}) => {
                 if(insertId) {
-                    Factory.get('article', insertId).then( data => {
+                    Factory.get(tb_name, insertId).then( data => {
                         res.send(Factory.responseSuccess(data))
                     })
                 }else{
@@ -50,7 +50,7 @@ const ArticleService = {
         let uid = Factory.getUid(req);
         if( uid ) {
             Factory.update(tb_name, id, params).then( () => {
-                Factory.get('article', id).then( data => {
+                Factory.get(tb_name, id).then( data => {
                     res.send(Factory.responseSuccess(data))
                 })
             })

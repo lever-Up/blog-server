@@ -1,0 +1,15 @@
+{
+  "qiniu": {
+    "accessKey": "UfBd-GLQDvBP7EGJtPqKcbbs82noj9_RT3bqi4IA",
+    "secretKey": "tvnLr4XPCKxx6MlI2Xuptecgt2yDeCVRLTrSS7hT",
+    "bucket": "blog"
+  },
+  "email": {
+    "host": "smtp.163.com",
+    "port": 25,
+    "auth": {
+      "user": "15913191260@163.com",
+      "pass": "xing0130"
+    }
+  }
+}

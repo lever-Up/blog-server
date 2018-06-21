@@ -2,20 +2,18 @@ const qiniu = require('qiniu');
 const fs = require('fs');
 const path = require('path');
 const Factory = require('../base/factory');
+const config = require('../base/config.json');
 
 const uploadDir = path.resolve(__dirname, '../../static/uploads');
 
-const accessKey = 'UfBd-GLQDvBP7EGJtPqKcbbs82noj9_RT3bqi4IA';
-const secretKey = 'tvnLr4XPCKxx6MlI2Xuptecgt2yDeCVRLTrSS7hT';
-const bucket = 'blog';
-const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+const mac = new qiniu.auth.digest.Mac(config.qiniu.accessKey, config.qiniu.secretKey);
 const options = {
-    scope: bucket,
+    scope: config.qiniu.bucket,
 }
 const putPolicy = new qiniu.rs.PutPolicy(options);
 const uploadToken = putPolicy.uploadToken(mac);
-const config = new qiniu.conf.Config();
-const formUploader = new qiniu.form_up.FormUploader(config);
+const qiniuConfig = new qiniu.conf.Config();
+const formUploader = new qiniu.form_up.FormUploader(qiniuConfig);
 const putExtra = new qiniu.form_up.PutExtra();
 
 /**

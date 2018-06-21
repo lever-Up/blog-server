@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use(require('cookie-parser')('session_secret'));
 app.use(express.static('static'));
 
 app.use('/blog/article', interface_article);

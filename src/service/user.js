@@ -56,7 +56,22 @@ const UserService = {
                 let user = data[0];
                 let token = Utils.guid();
                 cache.set(token, user.id, cacheDeadline);
-                res.cookie('token', token, {signed: true}); // 写入cookie
+                res.cookie('token', token, {signed: true, maxAge:cacheDeadline*1000, httpOnly:true, path:'/'}); // 写入cookie
+                res.send(Factory.responseSuccess({token}))
+            }else{
+                res.send(Factory.responseError('用户名或密码错误'))
+            }
+        })
+    },
+    adminLogin: (req, res, params) => {
+        let sql = `select * from admin where name=? and password=?`;
+        let values = [params.username, params.password];
+        Factory.exec(sql, values).then( data => {
+            if(data.length > 0) {
+                let user = data[0];
+                let token = Utils.guid();
+                cache.set(token, user.id, cacheDeadline);
+                res.cookie('token', token, {signed: true, maxAge:cacheDeadline*1000, httpOnly:true, path:'/'}); // 写入cookie
                 res.send(Factory.responseSuccess({token}))
             }else{
                 res.send(Factory.responseError('用户名或密码错误'))

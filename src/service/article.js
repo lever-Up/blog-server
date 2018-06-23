@@ -7,8 +7,8 @@ const tb_name = 'article';   // 表名
  */
 const ArticleService = {
     //文章列表
-    queryList: (req, res) => {
-        Factory.query(tb_name, {}).then( data => {
+    queryList: (req, res, params={}) => {
+        Factory.query(tb_name, params).then( data => {
             res.send(Factory.responseSuccess(data))
         })
     },

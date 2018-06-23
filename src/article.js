@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 // 博文列表
 app.get('/', (req, res) => {
-    ArticleService.queryList(req, res);
+    ArticleService.queryList(req, res, req.query);
 });
 
 // 获取博文信息

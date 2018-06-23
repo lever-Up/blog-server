@@ -19,6 +19,10 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     UserService.login(req, res, req.body)
 });
+// 后台登录
+app.post('/admin/login', (req, res) => {
+    UserService.adminLogin(req, res, req.body)
+});
 // 退出登录
 app.delete('/logout', (req, res) => {
     UserService.logout(req, res)

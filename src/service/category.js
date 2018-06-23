@@ -8,14 +8,9 @@ const tb_name = 'category';   // 表名
 const CategoryService = {
     // 类目列表
     queryList: (req, res) => {
-        let uid = Factory.getUid(req);
-        if( uid ) {
-            Factory.query(tb_name, {uid}).then( data => {
-                res.send(Factory.responseSuccess(data))
-            })
-        }else{
-            res.send(Factory.responseError('uid为空'))
-        }
+        Factory.query(tb_name, {}).then( data => {
+            res.send(Factory.responseSuccess(data))
+        })
     },
     //获取类目信息
     getCategory: (req, res, id) => {

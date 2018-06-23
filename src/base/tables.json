@@ -9,6 +9,7 @@
     "id": "int primary key NOT NULL AUTO_INCREMENT",
     "name": "varchar(255)",
     "password": "varchar(18)",
+    "nickname": "varchar(255)",
     "createTime": "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
     "gender": "int",
     "mobile": "varchar(11)",

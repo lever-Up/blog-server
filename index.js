@@ -1,5 +1,8 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
+const NodeCache = require('node-cache');
 const sqlext = require('./src/base/sqlext');
+const cache = new NodeCache();
 const SqlExt = new sqlext();
 
 const interface_article = require('./src/article');
@@ -9,6 +12,9 @@ const interface_files = require('./src/files');
 
 // 解决response.send的JSON.stringify时对Date数据的处理
 Date.prototype.toJSON = function () { return this.getTime() };
+
+global.cache = cache;   // 缓存对象
+global.cacheDeadline = 60*24*3; // 有效期3天，单位s
 
 SqlExt.init();
 
@@ -21,7 +27,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(require('cookie-parser')('session_secret'));
+app.use(cookieParser('session_secret'));
 app.use(express.static('static'));
 
 app.use('/blog/article', interface_article);

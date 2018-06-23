@@ -11,13 +11,21 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.post('/code', (req, res) => {
     UserService.sendMail(req, res, req.body.email)
 });
-// 添加用户/注册
-app.post('/add', (req, res) => {
-    res.send('user')
+// 用户注册
+app.post('/register', (req, res) => {
+    UserService.register(req, res, req.body)
 });
-// 登录
+// 用户登录
 app.post('/login', (req, res) => {
-    res.send('user')
+    UserService.login(req, res, req.body)
+});
+// 退出登录
+app.delete('/logout', (req, res) => {
+    UserService.logout(req, res)
+});
+// 获取登录用户的信息
+app.get('/loginUser', (req, res) => {
+    UserService.getLoginUser(req, res)
 });
 
 module.exports = app;

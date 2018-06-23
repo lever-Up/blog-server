@@ -8,24 +8,15 @@ const tb_name = 'article';   // 表名
 const ArticleService = {
     //文章列表
     queryList: (req, res) => {
-        let uid = Factory.getUid(req);
-        if( uid ) {
-            Factory.query(tb_name, {uid}).then( data => {
-                res.send(Factory.responseSuccess(data))
-            })
-        }else{
-            res.send(Factory.responseError('uid为空'))
-        }
+        Factory.query(tb_name, {}).then( data => {
+            res.send(Factory.responseSuccess(data))
+        })
     },
     //获取文章信息
     getArticle: (req, res, id) => {
-        if(id) {
-            Factory.get(tb_name, id).then( data => {
-                res.send(Factory.responseSuccess(data))
-            });
-        }else{
-            res.send(Factory.responseError('id为空'))
-        }
+        Factory.get(tb_name, id).then( data => {
+            res.send(Factory.responseSuccess(data))
+        });
     },
     //添加文章
     addArticle: (req, res, params) => {

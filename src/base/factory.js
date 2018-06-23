@@ -65,9 +65,10 @@ const Factory = {
     exec: async (sql, values) => {
         return await Sqlext.exec(sql, values);
     },
-    // 查询用户id，从cookie的token里面取 TODO 现在是从header里面取uid
+    // 查询用户id，从cookie的token里面取 TODO 待验证
     getUid: (req) => {
-        return req.get('uid') || '1256';
+        let token = req.signedCookies.token;
+        return cache.get(token);
     },
     // 封装返回客户端的数据
     responseSuccess: (data, msg='success') => {

@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const Factory = require('../base/factory');
 const config = require('../base/config.json');
-const Utils = require('../utils')
+const Utils = require('../utils');
 
 const tb_name = 'user';   // 表名
 
@@ -63,6 +63,7 @@ const UserService = {
             }
         })
     },
+    // 管理员登录
     adminLogin: (req, res, params) => {
         let sql = `select * from admin where name=? and password=?`;
         let values = [params.username, params.password];
@@ -98,6 +99,47 @@ const UserService = {
             })
         }else{
             res.send(Factory.responseError('请重新登录'))
+        }
+    },
+    // 后台-添加用户
+    addUser: (req, res, params) => {
+        let uid = Factory.getUid(req);
+        if( uid ) {
+            Factory.add(tb_name, params).then( ({insertId}) => {
+                if(insertId) {
+                    Factory.get(tb_name, insertId).then( data => {
+                        res.send(Factory.responseSuccess(data))
+                    })
+                }else{
+                    res.send(Factory.responseError('添加失败'))
+                }
+            })
+        } else {
+            res.send(Factory.responseError('请先登录'))
+        }
+    },
+    // 修改用户信息
+    modify: (req, res, id, params) => {
+        let uid = Factory.getUid(req);
+        if( uid ) {
+            Factory.update(tb_name, id, params).then( () => {
+                Factory.get(tb_name, id).then( data => {
+                    res.send(Factory.responseSuccess(data))
+                })
+            })
+        } else {
+            res.send(Factory.responseError('请先登录'))
+        }
+    },
+    // 删除用户，单个/批量
+    removeUser: (req, res, ids) => {
+        let uid = Factory.getUid(req);
+        if( uid ) {
+            Factory.remove(tb_name, ids).then( data => {
+                res.send(Factory.responseSuccess(ids, '删除成功'))
+            })
+        } else {
+            res.send(Factory.responseError('请先登录'))
         }
     }
 };

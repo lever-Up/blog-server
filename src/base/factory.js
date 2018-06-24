@@ -68,7 +68,10 @@ const Factory = {
     // 查询用户id，从cookie的token里面取 TODO 待验证
     getUid: (req) => {
         let token = req.signedCookies.token;
-        return cache.get(token);
+        if(token) {
+            return cache.get(token);
+        }
+        return null;
     },
     // 封装返回客户端的数据
     responseSuccess: (data, msg='success') => {

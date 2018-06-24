@@ -140,6 +140,42 @@ var interfaceData = [
                 method: 'GET',
                 desc: '获取登录用户的信息',
                 data: resSuccess(userTemp)
+            }, {
+                path: '/blog/user/addUser',
+                method: 'POST',
+                desc: '后台 - 添加用户',
+                params: [
+                    { key:'name', name:'用户名', way:'body', desc:'' },
+                    { key:'password', name:'密码', way:'body', desc:'' },
+                    { key:'email', name:'邮箱地址', way:'body', desc:'' },
+                ],
+                data: resSuccess(userTemp)
+            }, {
+                path: '/blog/user/[id]',
+                method: 'POST',
+                desc: '修改用户信息',
+                params: [
+                    { key:'id', name:'用户id', way:'url', desc:'' },
+                    { key:'rickname', name:'昵称', way:'body', desc:'' },
+                    { key:'mobile', name:'手机号', way:'body', desc:'' },
+                ],
+                data: resSuccess(userTemp)
+            }, {
+                path: '/blog/user/[id]',
+                method: 'DELETE',
+                desc: '删除用户',
+                params: [
+                    { key:'id', name:'用户id', way:'url', desc:'比如 id=102' }
+                ],
+                data: resSuccess([102])
+            }, {
+                path: '/blog/user/batch',
+                method: 'DELETE',
+                desc: '批量删除用户',
+                params: [
+                    { key:'ids', name:'用户id列表', way:'body', desc:'如：ids=[1,2,3]' }
+                ],
+                data: resSuccess([1,2,3])
             }
         ]
     }, {

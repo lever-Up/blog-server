@@ -19,7 +19,7 @@ const CategoryService = {
                 res.send(Factory.responseSuccess(data))
             });
         }else{
-            res.send(Factory.responseError('id为空'))
+            res.send(Factory.responseError('类目id为空'))
         }
     },
     //添加类目
@@ -37,7 +37,7 @@ const CategoryService = {
                 }
             })
         } else {
-            res.send(Factory.responseError('uid为空'))
+            res.send(Factory.responseError('请先登录'))
         }
     },
     // 修改类目
@@ -48,7 +48,7 @@ const CategoryService = {
                 res.send(Factory.responseSuccess(data))
             })
         } else {
-            res.send(Factory.responseError('uid为空'))
+            res.send(Factory.responseError('请先登录'))
         }
     },
     // 批量删除类目
@@ -59,7 +59,7 @@ const CategoryService = {
                 res.send(Factory.responseSuccess('', '删除成功'))
             })
         } else {
-            res.send(Factory.responseError('uid为空'))
+            res.send(Factory.responseError('请先登录'))
         }
     }
 };

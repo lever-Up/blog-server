@@ -22,19 +22,24 @@ const putExtra = new qiniu.form_up.PutExtra();
 const FileService = {
     upload: (req, res) => {
         let files = req.files, urls = [];
-        files.map( file => {
-            formUploader.putFile(uploadToken, file.originalname, file.path, putExtra, function(respErr, respBody, respInfo) {
-                fs.unlink(`${uploadDir}\\${respInfo.data.key}`, ()=>{});
-                if (respErr) {
-                    res.send(Factory.responseError('上传失败'))
-                }
-                let url = `//pamnpeizp.bkt.clouddn.com/${respInfo.data.key}`;
-                urls.push(url);
-                if(urls.length === files.length) {
-                    res.send(Factory.responseSuccess(urls))
-                }
+        if(files.length > 0) {
+            files.map(file => {
+                formUploader.putFile(uploadToken, file.originalname, file.path, putExtra, function (respErr, respBody, respInfo) {
+                    fs.unlink(`${uploadDir}\\${respInfo.data.key}`, () => {
+                    });
+                    if (respErr) {
+                        res.send(Factory.responseError('上传失败'))
+                    }
+                    let url = `//pamnpeizp.bkt.clouddn.com/${respInfo.data.key}`;
+                    urls.push(url);
+                    if (urls.length === files.length) {
+                        res.send(Factory.responseSuccess(urls))
+                    }
+                });
             });
-        });
+        }else{
+            res.send(Factory.responseError('没有文件'))
+        }
     }
 };
 

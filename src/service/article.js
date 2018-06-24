@@ -33,7 +33,7 @@ const ArticleService = {
                 }
             })
         } else {
-            res.send(Factory.responseError('uid为空'))
+            res.send(Factory.responseError('请先登录'))
         }
     },
     // 修改文章
@@ -46,7 +46,7 @@ const ArticleService = {
                 })
             })
         } else {
-            res.send(Factory.responseError('uid为空'))
+            res.send(Factory.responseError('请先登录'))
         }
     },
     // 批量删除文章
@@ -57,7 +57,7 @@ const ArticleService = {
                 res.send(Factory.responseSuccess(ids, '删除成功'))
             })
         } else {
-            res.send(Factory.responseError('uid为空'))
+            res.send(Factory.responseError('请先登录'))
         }
     }
 };

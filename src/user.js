@@ -31,5 +31,21 @@ app.delete('/logout', (req, res) => {
 app.get('/loginUser', (req, res) => {
     UserService.getLoginUser(req, res)
 });
+// 后台 - 添加用户
+app.post('/add', (req, res) => {
+    UserService.addUser(req, res, req.body)
+});
+// 修改用户信息
+app.post('/:id', (req, res) => {
+    UserService.modify(req, res, req.params.id, req.body)
+});
+// 删除 - 批量
+app.delete('/batch', (req, res) => {
+    UserService.removeUser(req, res, req.body.ids)
+});
+// 删除 - 单个
+app.delete('/:id', (req, res) => {
+    UserService.removeUser(req, res, req.params.id)
+});
 
 module.exports = app;

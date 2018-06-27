@@ -20,14 +20,6 @@ global.cacheDeadline = 60*24*3; // 有效期3天，单位s
 SqlExt.init();
 
 const app = express();
-/*
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, data, uid");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-    next();
-});
-*/
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -35,7 +27,7 @@ app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Content-Length, Authorization, Accept, X-Requested-With, data, uid");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By",' 3.2.1');
-    res.header("Content-Type", "application/json;charset=utf-8");
+    res.header("Character-Encoding", "utf-8");
     next();
 });
 

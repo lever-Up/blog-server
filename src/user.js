@@ -7,6 +7,10 @@ const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+// 获取登录用户的信息
+app.get('/', (req, res) => {
+    UserService.queryUser(req, res, req.body)
+});
 // 获取邮箱验证码
 app.post('/code', (req, res) => {
     UserService.sendMail(req, res, req.body.email)
@@ -18,10 +22,6 @@ app.post('/register', (req, res) => {
 // 用户登录
 app.post('/login', (req, res) => {
     UserService.login(req, res, req.body)
-});
-// 后台登录
-app.post('/admin/login', (req, res) => {
-    UserService.adminLogin(req, res, req.body)
 });
 // 退出登录
 app.delete('/logout', (req, res) => {

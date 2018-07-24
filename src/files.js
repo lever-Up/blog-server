@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
  * @api {POST} /files/upload 文件上传
  * @apiDescription 以form表单方式上传, 多文件上传
  * @apiName upload
- * @apiSampleRequest /files/upload
+ * @apiSampleRequest off
  * @apiGroup files
  * @apiSuccessExample {json} Success-Response:
  *     {

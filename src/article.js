@@ -28,9 +28,10 @@ app.get('/', (req, res) => {
  * @api {GET} /article/:id 获得博文信息
  * @apiDescription 根据ID获得某个博文的信息
  * @apiName getArticle
- * @apiParam (path参数) {Number} id
- * @apiSampleRequest /article/12
+ * @apiParam {String} id path，博文ID
+ * @apiSampleRequest /article/1
  * @apiGroup article
+ * @apiVersion 1.0.0
  */
 app.get('/:id', (req, res) => {
     ArticleService.getArticle(req, res, req.params.id);
@@ -41,28 +42,62 @@ app.get('/:id', (req, res) => {
  * @api {POST} /article 添加博文
  * @apiDescription 添加博文信息
  * @apiName addArticle
- * @apiHeader {String} token Users login token in cookies.
- * @apiParam (body参数) {String} title 标题
- * @apiParam (body参数) {String} content 内容
- * @apiParam (body参数) {String} categoryId 类目ID
+ * @apiHeader {String} token token会放置在cookie，测试的话在header里加token参数
+ * @apiParam {String} title body，标题
+ * @apiParam {String} content body，内容
+ * @apiParam {String} categoryId body，类目ID
  * @apiSampleRequest /article
  * @apiGroup article
+ * @apiVersion 1.0.0
  */
 app.post('/', (req, res) => {
     ArticleService.addArticle(req, res, req.body)
 });
 
-// 修改博文
+/**
+ * 修改博文
+ * @api {POST} /article/:id 修改博文
+ * @apiDescription 根据ID修改博文信息
+ * @apiName modifyArticle
+ * @apiHeader {String} token会放置在cookie，测试的话在header里加token参数
+ * @apiParam {String} id path，原博文ID
+ * @apiParam {String} title body，标题
+ * @apiParam {String} content body，内容
+ * @apiParam {String} categoryId body，类目ID
+ * @apiSampleRequest /article/1
+ * @apiGroup article
+ * @apiVersion 1.0.0
+ */
 app.post('/:id', (req, res) => {
     ArticleService.modifyArticle(req, res, req.params.id, req.body)
 });
 
-// 删除 - 批量
+/**
+ * 批量删除博文
+ * @api {DELETE} /article/batch 批量删除博文
+ * @apiDescription 根据多个id批量删除博文
+ * @apiName removeArticle
+ * @apiHeader {String} token会放置在cookie，测试的话在header里加token参数
+ * @apiParam {Array} ids body，博文ID集合
+ * @apiSampleRequest /article/batch
+ * @apiGroup article
+ * @apiVersion 1.0.0
+ */
 app.delete('/batch', (req, res) => {
     ArticleService.removeArticle(req, res, req.body.ids)
 });
 
-// 删除 - 单个
+/**
+ * 删除一条博文
+ * @api {DELETE} /article/:id 删除一条博文
+ * @apiDescription 根据id删除一条博文
+ * @apiName removeArticle
+ * @apiHeader {String} token会放置在cookie，测试的话在header里加token参数
+ * @apiParam {String} id path，博文ID
+ * @apiSampleRequest /article/:id
+ * @apiGroup article
+ * @apiVersion 1.0.0
+ */
 app.delete('/:id', (req, res) => {
     ArticleService.removeArticle(req, res, req.params.id)
 });

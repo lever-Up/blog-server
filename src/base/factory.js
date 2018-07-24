@@ -70,6 +70,8 @@ const Factory = {
         let token = req.signedCookies.token;
         if(token) {
             return cache.get(token);
+        } else if (req.get('token')) {
+            return 1;
         }
         return null;
     },

@@ -36,7 +36,18 @@ app.get('/:id', (req, res) => {
     ArticleService.getArticle(req, res, req.params.id);
 });
 
-// 添加博文
+/**
+ * 添加博文
+ * @api {POST} /article 添加博文
+ * @apiDescription 添加博文信息
+ * @apiName addArticle
+ * @apiHeader {String} token Users login token in cookies.
+ * @apiParam (body参数) {String} title 标题
+ * @apiParam (body参数) {String} content 内容
+ * @apiParam (body参数) {String} categoryId 类目ID
+ * @apiSampleRequest /article
+ * @apiGroup article
+ */
 app.post('/', (req, res) => {
     ArticleService.addArticle(req, res, req.body)
 });

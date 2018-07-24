@@ -31,7 +31,6 @@
     "id": "int primary key NOT NULL AUTO_INCREMENT",
     "title": "varchar(255)",
     "secTitle": "varchar(255)",
-    "userId": "int",
     "createTime": "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
     "content": "text",
     "categoryId": "int",

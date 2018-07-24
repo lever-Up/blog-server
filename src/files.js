@@ -25,7 +25,21 @@ const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-// 上传
+/**
+ * 文件上传
+ * @api {POST} /files/upload 文件上传
+ * @apiDescription 以form表单方式上传, 多文件上传
+ * @apiName upload
+ * @apiSampleRequest /files/upload
+ * @apiGroup files
+ * @apiSuccessExample {json} Success-Response:
+ *     {
+ *       "code": 0,
+ *       "msg": "Success",
+ *       "data": ["http://www.xxx.com/files/123.png","http://www.xxx.com/files/158.png"]
+ *     }
+ * @apiVersion 1.0.0
+ */
 app.post('/upload', upload.array('files'), (req, res) => {
     FileService.upload(req, res)
 });

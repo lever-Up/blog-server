@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
  * @apiDescription 根据条件筛选用户列表
  * @apiName queryUser
  * @apiSampleRequest /user
- * @apiGroup User
+ * @apiGroup user
  * @apiVersion 1.0.0
  */
 app.get('/', (req, res) => {

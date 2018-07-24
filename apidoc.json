@@ -1,8 +1,8 @@
 {
-  "name": "blog",
+  "name": "Blog接口API文档",
   "version": "1.0.0",
-  "description": "Blog API文档",
-  "title": "blog API",
+  "description": "",
+  "title": "blog api",
   "url" : "http://localhost:8098/blog",
   "sampleUrl": "http://localhost:8098/blog",
   "forceLanguage":"zh-cn",

@@ -15,7 +15,11 @@ const ArticleService = {
     //获取文章信息
     getArticle: (req, res, id) => {
         Factory.get(tb_name, id).then( data => {
-            res.send(Factory.responseSuccess(data))
+            if(data) {
+                res.send(Factory.responseSuccess(data))
+            }else{
+                res.send(Factory.responseError('博文不存在,id='+id))
+            }
         });
     },
     //添加文章

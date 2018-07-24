@@ -7,7 +7,15 @@ const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-// 获取登录用户的信息
+/**
+ * 获得用户列表
+ * @api {GET} /user 获得用户列表
+ * @apiDescription 根据条件筛选用户列表
+ * @apiName queryUser
+ * @apiSampleRequest /user
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ */
 app.get('/', (req, res) => {
     UserService.queryUser(req, res, req.body)
 });

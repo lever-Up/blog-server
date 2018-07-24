@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "build": "webpack"
+    "build": "webpack",
+    "api": "apidoc -i ./src -o static/apidoc"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "apidoc": "^0.17.6",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",

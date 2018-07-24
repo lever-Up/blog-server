@@ -10,12 +10,28 @@ const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-// 博文列表
+/**
+ * 获得博文列表
+ * @api {GET} /article 获得博文列表
+ * @apiDescription 根据条件获得相应的博文列表
+ * @apiName queryList
+ * @apiSampleRequest /article
+ * @apiGroup article
+ * @apiVersion 1.0.0
+ */
 app.get('/', (req, res) => {
     ArticleService.queryList(req, res, req.query);
 });
 
-// 获取博文信息
+/**
+ * 获得博文信息
+ * @api {GET} /article/:id 获得博文信息
+ * @apiDescription 根据ID获得某个博文的信息
+ * @apiName getArticle
+ * @apiParam (path参数) {Number} id
+ * @apiSampleRequest /article/12
+ * @apiGroup article
+ */
 app.get('/:id', (req, res) => {
     ArticleService.getArticle(req, res, req.params.id);
 });

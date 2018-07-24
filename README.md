@@ -2,7 +2,7 @@
 
 技术架构： nodejs + express + mysql
 
-前台页面：https://github.com/lever-Up/blog.git
+前台页面：[https://github.com/lever-Up/blog.git](https://github.com/lever-Up/blog.git)
 
 
 /src/base/db.json : 
@@ -15,5 +15,6 @@
 }
 ```
 
+接口API文档: [apidoc](http://120.77.178.13:8098/apidoc)
+
 @TODO 还没完成
-# blog-server

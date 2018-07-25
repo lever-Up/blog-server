@@ -65,13 +65,11 @@ const Factory = {
     exec: async (sql, values) => {
         return await Sqlext.exec(sql, values);
     },
-    // 查询用户id，从cookie的token里面取 TODO 待验证
+    // 查询用户id，从cookie的token里面取
     getUid: (req) => {
         let token = req.signedCookies.token;
         if(token) {
             return cache.get(token);
-        } else if (req.get('token')) {
-            return 1;
         }
         return null;
     },

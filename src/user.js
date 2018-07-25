@@ -71,7 +71,6 @@ app.post('/login', (req, res) => {
  * @api {DELETE} /user/logout 退出登录
  * @apiDescription 退出登录
  * @apiName logout
- * @apiHeader {String} token token会放置在cookie，测试的话在header里加token参数
  * @apiSampleRequest /user/logout
  * @apiGroup user
  * @apiVersion 1.0.0
@@ -80,13 +79,11 @@ app.delete('/logout', (req, res) => {
     UserService.logout(req, res)
 });
 
-// 获取登录用户的信息
 /**
  * 获取登录用户的信息
- * @api {DELETE} /user/loginUser 获取登录用户的信息
+ * @api {GET} /user/loginUser 获取登录用户的信息
  * @apiDescription 获取登录用户的信息
  * @apiName getLoginUser
- * @apiHeader {String} token token会放置在cookie，测试的话在header里加token参数
  * @apiSampleRequest /user/loginUser
  * @apiGroup user
  * @apiVersion 1.0.0
@@ -94,19 +91,64 @@ app.delete('/logout', (req, res) => {
 app.get('/loginUser', (req, res) => {
     UserService.getLoginUser(req, res)
 });
-// 后台 - 添加用户
+
+/**
+ * 添加用户
+ * @api {POST} /user/add 后台添加用户
+ * @apiDescription 用于后台添加用户
+ * @apiName addUser
+ * @apiParam {String} name body，用户名
+ * @apiParam {String} password body，密码
+ * @apiParam {String} email body，邮箱地址
+ * @apiSampleRequest /user/add
+ * @apiGroup admin
+ * @apiVersion 1.0.0
+ */
 app.post('/add', (req, res) => {
     UserService.addUser(req, res, req.body)
 });
-// 修改用户信息
+
+/**
+ * 修改用户信息
+ * @apiIgnore
+ * @api {POST} /user/:id 修改用户信息
+ * @apiDescription 修改用户信息
+ * @apiName modify
+ * @apiParam {String} [id] path，用户ID
+ * @apiParam {String} [gender] body，性别
+ * @apiParam {String} [mobile] body，手机号码
+ * @apiSampleRequest /user/add
+ * @apiGroup user
+ * @apiVersion 1.0.0
+ */
 app.post('/:id', (req, res) => {
     UserService.modify(req, res, req.params.id, req.body)
 });
-// 删除 - 批量
+
+/**
+ * 批量删除
+ * @api {DELETE} /user/batch 批量删除
+ * @apiDescription 批量删除用户
+ * @apiName remove_batch
+ * @apiParam {Array} ids body，用户D集合
+ * @apiSampleRequest /user/batch
+ * @apiGroup admin
+ * @apiVersion 1.0.0
+ */
 app.delete('/batch', (req, res) => {
     UserService.removeUser(req, res, req.body.ids)
 });
-// 删除 - 单个
+
+/**
+ * 删除单个用户
+ * @api {DELETE} /user/:id 删除用户
+ * @apiDescription 根据ID删除单个用户
+ * @apiName remove
+ * @apiParam {String} id path，用户ID
+ * @apiSampleRequest /user/1
+ * @apiGroup admin
+ * @apiVersion 1.0.0
+ */
 app.delete('/:id', (req, res) => {
     UserService.removeUser(req, res, req.params.id)
 });

@@ -95,7 +95,9 @@ const UserService = {
     addUser: (req, res, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
+            console.log(params)
             Factory.add(tb_name, params).then( ({insertId}) => {
+                console.log(insertId)
                 if(insertId) {
                     Factory.get(tb_name, insertId).then( data => {
                         res.send(Factory.responseSuccess(data))

@@ -34,7 +34,6 @@ const AdminService = {
     // 获取登录用户的信息
     getLoginUser: (req, res) => {
         let uid = Factory.getUid(req);
-        console.log('uid:',uid)
         if(uid) {
             Factory.get(tb_name, uid).then( user => {
                 if(user) {

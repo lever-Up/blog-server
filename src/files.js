@@ -32,10 +32,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
  * @apiName upload
  * @apiSampleRequest off
  * @apiGroup files
- * @apiSuccessExample {json} Success-Response:
+ * @apiSuccessExample {json} 上传成功返回:
  *     {
  *       "code": 0,
- *       "msg": "Success",
+ *       "msg": "success",
  *       "data": ["http://www.xxx.com/files/123.png","http://www.xxx.com/files/158.png"]
  *     }
  * @apiVersion 1.0.0

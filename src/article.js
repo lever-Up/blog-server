@@ -42,7 +42,6 @@ app.get('/:id', (req, res) => {
  * @api {POST} /article 添加博文
  * @apiDescription 添加博文信息
  * @apiName addArticle
- * @apiHeader {String} token token会放置在cookie，测试的话在header里加token参数
  * @apiParam {String} title body，标题
  * @apiParam {String} content body，内容
  * @apiParam {String} categoryId body，类目ID
@@ -59,7 +58,6 @@ app.post('/', (req, res) => {
  * @api {POST} /article/:id 修改博文
  * @apiDescription 根据ID修改博文信息
  * @apiName modifyArticle
- * @apiHeader {String} token会放置在cookie，测试的话在header里加token参数
  * @apiParam {String} id path，原博文ID
  * @apiParam {String} title body，标题
  * @apiParam {String} content body，内容
@@ -74,10 +72,9 @@ app.post('/:id', (req, res) => {
 
 /**
  * 批量删除博文
- * @api {DELETE} /article/batch 批量删除博文
+ * @api {DELETE} /article/batch 批量删除
  * @apiDescription 根据多个id批量删除博文
- * @apiName removeArticle
- * @apiHeader {String} token会放置在cookie，测试的话在header里加token参数
+ * @apiName remove_batch
  * @apiParam {Array} ids body，博文ID集合
  * @apiSampleRequest /article/batch
  * @apiGroup article
@@ -89,10 +86,9 @@ app.delete('/batch', (req, res) => {
 
 /**
  * 删除一条博文
- * @api {DELETE} /article/:id 删除一条博文
+ * @api {DELETE} /article/:id 删除
  * @apiDescription 根据id删除一条博文
- * @apiName removeArticle
- * @apiHeader {String} token会放置在cookie，测试的话在header里加token参数
+ * @apiName remove
  * @apiParam {String} id path，博文ID
  * @apiSampleRequest /article/:id
  * @apiGroup article

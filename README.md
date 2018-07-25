@@ -17,7 +17,7 @@
 
 ### 接口API文档: 
 
-- [apidoc](http://120.77.178.13:8098/apidoc)
+- [apidoc](http://120.77.178.13:8098/apidoc){:target="_blank"}
 
 #
 @TODO 还没完成

@@ -110,14 +110,15 @@ app.post('/add', (req, res) => {
 
 /**
  * 修改用户信息
- * @apiIgnore
  * @api {POST} /user/:id 修改用户信息
  * @apiDescription 修改用户信息
  * @apiName modify
- * @apiParam {String} [id] path，用户ID
- * @apiParam {String} [gender] body，性别
+ * @apiParam {String} [nickname] body，昵称
+ * @apiParam {Number} [gender] body，性别: 男1女0
  * @apiParam {String} [mobile] body，手机号码
- * @apiSampleRequest /user/add
+ * @apiParam {String} [address] body，地址
+ * @apiParam {String} [avatar] body，头像url
+ * @apiSampleRequest /user/1
  * @apiGroup user
  * @apiVersion 1.0.0
  */
@@ -144,7 +145,6 @@ app.delete('/batch', (req, res) => {
  * @api {DELETE} /user/:id 删除用户
  * @apiDescription 根据ID删除单个用户
  * @apiName remove
- * @apiParam {String} id path，用户ID
  * @apiSampleRequest /user/1
  * @apiGroup admin
  * @apiVersion 1.0.0

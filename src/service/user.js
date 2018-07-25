@@ -95,9 +95,7 @@ const UserService = {
     addUser: (req, res, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
-            console.log(params)
             Factory.add(tb_name, params).then( ({insertId}) => {
-                console.log(insertId)
                 if(insertId) {
                     Factory.get(tb_name, insertId).then( data => {
                         res.send(Factory.responseSuccess(data))
@@ -114,10 +112,14 @@ const UserService = {
     modify: (req, res, id, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
-            Factory.update(tb_name, id, params).then( () => {
-                Factory.get(tb_name, id).then( data => {
-                    res.send(Factory.responseSuccess(data))
-                })
+            Factory.update(tb_name, id, params).then( ret => {
+                if(ret.affectedRows > 0) {
+                    Factory.get(tb_name, id).then( data => {
+                        res.send(Factory.responseSuccess(data))
+                    })
+                } else {
+                    res.send(Factory.responseError('用户不存在，id='+id))
+                }
             })
         } else {
             res.send(Factory.responseError('请先登录'))

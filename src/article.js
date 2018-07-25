@@ -28,7 +28,6 @@ app.get('/', (req, res) => {
  * @api {GET} /article/:id 获得博文信息
  * @apiDescription 根据ID获得某个博文的信息
  * @apiName getArticle
- * @apiParam {String} id path，博文ID
  * @apiSampleRequest /article/1
  * @apiGroup article
  * @apiVersion 1.0.0
@@ -58,7 +57,6 @@ app.post('/', (req, res) => {
  * @api {POST} /article/:id 修改博文
  * @apiDescription 根据ID修改博文信息
  * @apiName modifyArticle
- * @apiParam {String} id path，原博文ID
  * @apiParam {String} title body，标题
  * @apiParam {String} content body，内容
  * @apiParam {String} categoryId body，类目ID
@@ -89,8 +87,7 @@ app.delete('/batch', (req, res) => {
  * @api {DELETE} /article/:id 删除
  * @apiDescription 根据id删除一条博文
  * @apiName remove
- * @apiParam {String} id path，博文ID
- * @apiSampleRequest /article/:id
+ * @apiSampleRequest /article/1
  * @apiGroup article
  * @apiVersion 1.0.0
  */

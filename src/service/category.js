@@ -16,7 +16,11 @@ const CategoryService = {
     getCategory: (req, res, id) => {
         if(id) {
             Factory.get(tb_name, id).then( data => {
-                res.send(Factory.responseSuccess(data))
+                if(data) {
+                    res.send(Factory.responseSuccess(data))
+                } else {
+                    res.send(Factory.responseError('类目不存在，id='+id))
+                }
             });
         }else{
             res.send(Factory.responseError('类目id为空'))
@@ -29,7 +33,7 @@ const CategoryService = {
             params.uid = uid;
             Factory.add(tb_name, params).then( ({insertId}) => {
                 if(insertId) {
-                    Factory.get('article', insertId).then( data => {
+                    Factory.get(tb_name, insertId).then( data => {
                         res.send(Factory.responseSuccess(data))
                     })
                 }else{
@@ -45,7 +49,13 @@ const CategoryService = {
         let uid = Factory.getUid(req);
         if( uid ) {
             Factory.update(tb_name, id, params).then( data => {
-                res.send(Factory.responseSuccess(data))
+                if(data.affectedRows > 0) {
+                    Factory.get(tb_name, id).then( data2 => {
+                        res.send(Factory.responseSuccess(data2))
+                    });
+                } else {
+                    res.send(Factory.responseError('类目不存在，id='+id))
+                }
             })
         } else {
             res.send(Factory.responseError('请先登录'))
@@ -56,7 +66,11 @@ const CategoryService = {
         let uid = Factory.getUid(req);
         if( uid ) {
             Factory.remove(tb_name, ids).then( data => {
-                res.send(Factory.responseSuccess('', '删除成功'))
+                if(data) {
+                    res.send(Factory.responseSuccess(ids, '删除成功'))
+                } else {
+                    res.send(Factory.responseError('删除失败'))
+                }
             })
         } else {
             res.send(Factory.responseError('请先登录'))

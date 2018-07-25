@@ -55,9 +55,9 @@ const Factory = {
     remove: async (table, ids) => {
         let sqls = [];
         if(ids instanceof Array) {
-            sqls = ids.map( id => `delete from ${table} where id=${id}`)
+            sqls = ids.map( id => `delete from ${table} where id='${id}'`)
         }else{
-            sqls.push(`delete from ${table} where id=${ids}`)
+            sqls.push(`delete from ${table} where id='${ids}'`)
         }
         return await Sqlext.exec(sqls.join(';'))
     },

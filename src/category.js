@@ -28,13 +28,12 @@ app.get('/', (req, res) => {
  * @api {GET} /category/:id 获取类目信息
  * @apiDescription 根据ID获得类目信息
  * @apiName getCategory
- * @apiParam {String} id path，类目ID
  * @apiSampleRequest /category/1
  * @apiGroup category
  * @apiVersion 1.0.0
  */
 app.get('/:id', (req, res) => {
-    CategoryService.getCategory(req, res, req.param.id);
+    CategoryService.getCategory(req, res, req.params.id);
 });
 
 /**
@@ -57,7 +56,6 @@ app.post('/', (req, res) => {
  * @api {POST} /category/:id 修改类目
  * @apiDescription 修改类目
  * @apiName modifyCategory
- * @apiParam {String} id path，类目ID
  * @apiParam {String} name body，名称
  * @apiParam {String} [remark] body，备注
  * @apiSampleRequest /category/1
@@ -87,7 +85,6 @@ app.delete('/batch', (req, res) => {
  * @api {DELETE} /category/:id 删除
  * @apiDescription 根据ID删除单个类目
  * @apiName remove
- * @apiParam {String} id path，类目ID
  * @apiSampleRequest /category/1
  * @apiGroup category
  * @apiVersion 1.0.0

@@ -44,10 +44,14 @@ const ArticleService = {
     modifyArticle: (req, res, id, params) => {
         let uid = Factory.getUid(req);
         if( uid ) {
-            Factory.update(tb_name, id, params).then( () => {
-                Factory.get(tb_name, id).then( data => {
-                    res.send(Factory.responseSuccess(data))
-                })
+            Factory.update(tb_name, id, params).then( ret => {
+                if(ret.affectedRows > 0) {
+                    Factory.get(tb_name, id).then( data => {
+                        res.send(Factory.responseSuccess(data))
+                    })
+                } else {
+                    res.send(Factory.responseError('博文不存在，id='+id))
+                }
             })
         } else {
             res.send(Factory.responseError('请先登录'))

@@ -75,7 +75,6 @@ const UserService = {
         if(uid) {
             Factory.get(tb_name, uid).then( user => {
                 if(user) {
-                    delete user.password;
                     res.send(Factory.responseSuccess(user))
                 }else{
                     res.send(Factory.responseError('用户不存在'))
@@ -88,6 +87,11 @@ const UserService = {
     // 用户列表
     queryUser: (req, res, params) => {
         Factory.query(tb_name, params).then( data => {
+            if(data && data.length > 0) {
+                data.map( d => {
+                    delete d.password;
+                })
+            }
             res.send(Factory.responseSuccess(data))
         })
     },

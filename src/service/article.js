@@ -2,21 +2,48 @@ const Factory = require('../base/factory');
 
 const tb_name = 'article';   // 表名
 
+// 获取类目数据与用户数据
+const getOtherInfo = (article) => {
+    return Promise.all([
+        Factory.get('category', article.categoryId),
+        Factory.get('user', article.uid)
+    ])
+};
+
 /**
  * 文章类接口
  */
 const ArticleService = {
     //文章列表
-    queryList: (req, res, params={}) => {
+    queryList: async (req, res, params={}) => {
+        let list = await Factory.query(tb_name, params);
+        for(let item of list) {
+            let od = await getOtherInfo(item);
+            item.category = od[0];
+            item.user = od[1];
+        }
+        res.send(Factory.responseSuccess(list));
+        /*
         Factory.query(tb_name, params).then( data => {
+            data.map( d => {
+                getOtherInfo(d).then( od => {
+                    d.category = od[0];
+                    d.user = od[1];
+                });
+            });
             res.send(Factory.responseSuccess(data))
-        })
+        })*/
     },
     //获取文章信息
     getArticle: (req, res, id) => {
         Factory.get(tb_name, id).then( data => {
             if(data) {
-                res.send(Factory.responseSuccess(data))
+                getOtherInfo(data).then( od => {
+                    data.category = od[0];
+                    data.user = od[1];
+
+                    res.send(Factory.responseSuccess(data))
+                });
             }else{
                 res.send(Factory.responseError('博文不存在,id='+id))
             }

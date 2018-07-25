@@ -11,7 +11,11 @@ const Factory = {
     get: async (table, id) => {
         let sql = `select * from ${table} where id=${id}`;
         let data = await Sqlext.exec(sql);
-        return data[0];
+        data = data[0];
+        if(data && table === 'user') {
+            delete data.password;
+        }
+        return data;
     },
     // 查询数据库
     query: async (table, params, sort) => {

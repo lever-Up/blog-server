@@ -1,6 +1,6 @@
 const mysql  = require('mysql');
 const tables = require('./tables.json');
-const db = require('./db.json');
+const config = require('./config.json');
 
 /**
  * 数据库设置、初始化
@@ -9,11 +9,11 @@ class SqlExt {
 
     constructor(props) {
         this.mysqlPool = mysql.createPool({
-            host     : db.host,
-            user     : db.user,
-            password : db.password,
+            host     : config.mysql.host,
+            user     : config.mysql.user,
+            password : config.mysql.password,
             port: '3306',
-            database: db.database,
+            database: config.mysql.database,
             multipleStatements: true,
             stringifyObjects: true
         });

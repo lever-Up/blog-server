@@ -36,5 +36,20 @@
     "categoryId": "int",
     "status": "int DEFAULT 0",
     "uid": "int NOT NULL"
+  },
+  "comment": {
+    "id": "int primary key NOT NULL AUTO_INCREMENT",
+    "content": "text",
+    "pid": "int",
+    "articleId": "int",
+    "createTime": "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
+    "uid": "int NOT NULL"
+  },
+  "tag": {
+    "id": "int primary key NOT NULL AUTO_INCREMENT",
+    "name": "varchar(255)",
+    "articleId": "int",
+    "createTime": "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
+    "uid": "int NOT NULL"
   }
 }

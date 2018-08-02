@@ -1,4 +1,10 @@
 {
+  "mysql": {
+    "host": "localhost",
+    "user": "root",
+    "password": "root",
+    "database": "blog"
+  },
   "qiniu": {
     "accessKey": "UfBd-GLQDvBP7EGJtPqKcbbs82noj9_RT3bqi4IA",
     "secretKey": "tvnLr4XPCKxx6MlI2Xuptecgt2yDeCVRLTrSS7hT",

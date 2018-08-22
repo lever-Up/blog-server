@@ -15,11 +15,30 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
  * @api {GET} /article 获得博文列表
  * @apiDescription 根据条件获得相应的博文列表
  * @apiName queryList
+ * @apiParam {Array} [query] 查询条件
+ * @apiParam {String} [sort=-createTime] 排序方式
+ * @apiParam {Number} [page=0] 当前页码
+ * @apiParam {Number} [count=10] 每次查询多少条数据
+ * @apiParamExample {json} Request-Example:
+ *      {
+ *         query: [
+ *            { key: 'title', value: '测试' },
+ *            { key: 'createTime', value: '2018-08-01', value2: '2018-08-15' },
+ *            [
+ *                { key: 'tagId', value: 1 },
+ *                { key: 'tagId', value: 2 }
+ *            ]
+ *         ],
+ *         sort: '-createTime',
+ *         page: 0,
+ *         count: 10
+ *      }
  * @apiSampleRequest /article
  * @apiGroup article
  * @apiVersion 1.0.0
  */
 app.get('/', (req, res) => {
+    console.log(req.query)
     ArticleService.queryList(req, res, req.query);
 });
 

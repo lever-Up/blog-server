@@ -7,7 +7,7 @@ const Sqlext = new sqlext();
  * sql通用接口工程类
  */
 const Factory = {
-    // 根据id获取数据库数据
+    // 根据id获取表数据
     get: async (table, id) => {
         let sql = `select * from ${table} where id=${id}`;
         let data = await Sqlext.exec(sql);
@@ -17,14 +17,36 @@ const Factory = {
         }
         return data;
     },
-    // 查询数据库
-    query: async (table, params, sort) => {
+    /**
+     * 查询列表
+     * @param table     数据表名
+     * @param params
+     *      {
+     *         query: [
+     *            { key: 'title', value: '测试' },
+     *            { key: 'createTime', value: '2018-08-01', value2: '2018-08-15' },
+     *            [
+     *                { key: 'tagId', value: 1 },
+     *                { key: 'tagId', value: 2 }
+     *            ]
+     *         ],
+     *         sort: '-createTime',
+     *         page: 0,
+     *         count: 10
+     *      }
+     *
+     * @param sort      排序方式， 默认-createTime降序，+升序 / -降序
+     * @returns {Promise<void>}
+     */
+    query: async (table, params) => {
+        let { query={}, sort='-createTime', page=0, count=10} = params;
+
         let sql = `select * from ${table}`, values = [];
         if(params && !utils.isEmpty(params)) {
             sql += ' where 1=1';
             Object.keys(params).map( key => {
-                sql += ` and ${key}=?`;
-                values.push(params[key]);
+                sql += ` and ${key} like ?`;
+                values.push(`%${params[key]}%`);
             });
         }
         if(sort) {

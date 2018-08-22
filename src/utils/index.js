@@ -34,6 +34,14 @@ const Utils = {
             let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
             return v.toString(16);
         });
+    },
+    // 判断数组
+    isArray: (obj) => {
+        if(Array.isArray){
+            return Array.isArray(obj);
+        }else{
+            return Object.prototype.toString.call(obj)==="[object Array]";
+        }
     }
 };
 

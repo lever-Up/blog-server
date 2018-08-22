@@ -18,7 +18,8 @@ const Factory = {
         return data;
     },
     /**
-     * 查询列表
+     * 查询列表 @TODO 还差like查询
+     *
      * @param table     数据表名
      * @param params
      *      {
@@ -35,25 +36,59 @@ const Factory = {
      *         count: 10
      *      }
      *
-     * @param sort      排序方式， 默认-createTime降序，+升序 / -降序
+     *   sort排序方式， 默认-createTime降序，+升序 / -降序
+     *
      * @returns {Promise<void>}
      */
     query: async (table, params) => {
-        let { query={}, sort='-createTime', page=0, count=10} = params;
+        let { query=[], sort='-createTime', page=0, count=10} = params;
 
         let sql = `select * from ${table}`, values = [];
-        if(params && !utils.isEmpty(params)) {
-            sql += ' where 1=1';
-            Object.keys(params).map( key => {
-                sql += ` and ${key} like ?`;
-                values.push(`%${params[key]}%`);
+        if(query.length > 0) {
+            let sqlAnd = [];
+            query.map( firCon => {
+                if(utils.isArray(firCon)) {
+                    // or
+                    if(firCon.length > 0) {
+                        let temp = [];
+                        firCon.map( secCon => {
+                            if(secCon.value2) {
+                                temp.push(`${secCon.key} between ? and ?`);
+                                values.push(secCon.value);
+                                values.push(secCon.value2);
+                            } else {
+                                temp.push(`${secCon.key}=?`);
+                                values.push(secCon.value);
+                            }
+                        });
+                        sqlAnd.push(temp.join(' or '));
+                    }
+                } else if(firCon.value2) {
+                    // between and
+                    sqlAnd.push(`${firCon.key} between ? and ?`);
+                    values.push(firCon.value);
+                    values.push(firCon.value2);
+                } else {
+                    // and
+                    sqlAnd.push(`${firCon.key}=?`);
+                    values.push(firCon.value);
+                }
             });
+            if(sqlAnd.length > 0) {
+                sql += ` where ${sqlAnd.join(' and ')}`
+            }
         }
+        // 排序
         if(sort) {
-            sql += ` order by ${sort} ${sort.indexOf('-')===0?'desc':'asc'}`
+            let sortType = sort.indexOf('-')===0?'desc':'asc';
+            let sortKey = sort.substr(1, sort.length);
+            sql += ` order by ${sortKey} ${sortType}`
         }else{
             sql += ` order by createTime desc`
         }
+        // 分页
+        sql += ` limit ${page*count}, ${count}`;
+
         return await Sqlext.exec(sql, values);
     },
     // 添加表数据

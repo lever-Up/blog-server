@@ -3,43 +3,40 @@ const utils = require('../utils');
 
 const Sqlext = new sqlext();
 
+// 组装sql的where条件语句
 const createWhereSql = (query) => {
     let sql = '', sqlAnd = [], values = [];
+
+    function _cr(str, con) {
+        if(con.value2) {
+            // between and
+            str.push(`${con.key} between ? and ?`);
+            values.push(con.value);
+            values.push(con.value2);
+        } else if (con.like) {
+            // like
+            str.push(`${con.key} like ?`);
+            values.push(`%${con.value}%`);
+        } else {
+            // equal
+            str.push(`${con.key}=?`);
+            values.push(con.value);
+        }
+    }
+
     query.map( firCon => {
         if(utils.isArray(firCon)) {
             // or
             if(firCon.length > 0) {
                 let temp = [];
                 firCon.map( secCon => {
-                    if(secCon.value2) {
-                        // between and
-                        temp.push(`${secCon.key} between ? and ?`);
-                        values.push(secCon.value);
-                        values.push(secCon.value2);
-                    } else if (secCon.like) {
-                        // like
-                        temp.push(`${secCon.key} like ?`);
-                        values.push(`%${secCon.value}%`);
-                    } else {
-                        temp.push(`${secCon.key}=?`);
-                        values.push(secCon.value);
-                    }
+                    _cr(temp, secCon);
                 });
                 sqlAnd.push(temp.join(' or '));
             }
-        } else if(firCon.value2) {
-            // between and
-            sqlAnd.push(`${firCon.key} between ? and ?`);
-            values.push(firCon.value);
-            values.push(firCon.value2);
-        } else if (firCon.like) {
-            // and like
-            sqlAnd.push(`${firCon.key} like ?`);
-            values.push(`%${firCon.value}%`);
         } else {
             // and
-            sqlAnd.push(`${firCon.key}=?`);
-            values.push(firCon.value);
+            _cr(sqlAnd, firCon);
         }
     });
     if(sqlAnd.length > 0) {

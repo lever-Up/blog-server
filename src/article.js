@@ -22,11 +22,11 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
  * @apiParamExample {json} Request-Example:
  *      {
  *         query: [
- *            { key: 'title', value: '测试' },
- *            { key: 'createTime', value: '2018-08-01', value2: '2018-08-15' },
+ *            { "key": "title", "value": "测试", "like":true },
+ *            { "key": "createTime", "value": "2018-08-01", "value2": "2018-08-15" },
  *            [
- *                { key: 'tagId', value: 1 },
- *                { key: 'tagId', value: 2 }
+ *                { "key": "tagId", "value": 1 },
+ *                { "key": "tagId", "value": 2 }
  *            ]
  *         ],
  *         sort: '-createTime',
@@ -38,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
  * @apiVersion 1.0.0
  */
 app.get('/', (req, res) => {
-    console.log(req.query)
     ArticleService.queryList(req, res, req.query);
 });
 

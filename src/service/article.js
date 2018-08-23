@@ -17,22 +17,20 @@ const ArticleService = {
     //文章列表
     queryList: async (req, res, params={}) => {
         let list = await Factory.query(tb_name, params);
+        let totalCount = await Factory.count(tb_name, params);
         for(let item of list) {
             let od = await getOtherInfo(item);
             item.category = od[0];
             item.user = od[1];
         }
+        // 页码信息
+        let size = totalCount[0].count || 0;
+        let { page=0, count=10 } = params;
+        res.set({
+            Range: JSON.stringify({page, count, size, pages: Math.ceil(size/count)})
+        });
+        // 返回
         res.send(Factory.responseSuccess(list));
-        /*
-        Factory.query(tb_name, params).then( data => {
-            data.map( d => {
-                getOtherInfo(d).then( od => {
-                    d.category = od[0];
-                    d.user = od[1];
-                });
-            });
-            res.send(Factory.responseSuccess(data))
-        })*/
     },
     //获取文章信息
     getArticle: (req, res, id) => {

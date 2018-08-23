@@ -3,6 +3,51 @@ const utils = require('../utils');
 
 const Sqlext = new sqlext();
 
+const createWhereSql = (query) => {
+    let sql = '', sqlAnd = [], values = [];
+    query.map( firCon => {
+        if(utils.isArray(firCon)) {
+            // or
+            if(firCon.length > 0) {
+                let temp = [];
+                firCon.map( secCon => {
+                    if(secCon.value2) {
+                        // between and
+                        temp.push(`${secCon.key} between ? and ?`);
+                        values.push(secCon.value);
+                        values.push(secCon.value2);
+                    } else if (secCon.like) {
+                        // like
+                        temp.push(`${secCon.key} like ?`);
+                        values.push(`%${secCon.value}%`);
+                    } else {
+                        temp.push(`${secCon.key}=?`);
+                        values.push(secCon.value);
+                    }
+                });
+                sqlAnd.push(temp.join(' or '));
+            }
+        } else if(firCon.value2) {
+            // between and
+            sqlAnd.push(`${firCon.key} between ? and ?`);
+            values.push(firCon.value);
+            values.push(firCon.value2);
+        } else if (firCon.like) {
+            // and like
+            sqlAnd.push(`${firCon.key} like ?`);
+            values.push(`%${firCon.value}%`);
+        } else {
+            // and
+            sqlAnd.push(`${firCon.key}=?`);
+            values.push(firCon.value);
+        }
+    });
+    if(sqlAnd.length > 0) {
+        sql += ` where ${sqlAnd.join(' and ')}`
+    }
+    return { sql, values }
+};
+
 /**
  * sql通用接口工程类
  */
@@ -18,13 +63,13 @@ const Factory = {
         return data;
     },
     /**
-     * 查询列表 @TODO 还差like查询
+     * 查询列表
      *
      * @param table     数据表名
      * @param params
      *      {
      *         query: [
-     *            { key: 'title', value: '测试' },
+     *            { key: 'title', value: '测试', like:true },
      *            { key: 'createTime', value: '2018-08-01', value2: '2018-08-15' },
      *            [
      *                { key: 'tagId', value: 1 },
@@ -45,38 +90,9 @@ const Factory = {
 
         let sql = `select * from ${table}`, values = [];
         if(query.length > 0) {
-            let sqlAnd = [];
-            query.map( firCon => {
-                if(utils.isArray(firCon)) {
-                    // or
-                    if(firCon.length > 0) {
-                        let temp = [];
-                        firCon.map( secCon => {
-                            if(secCon.value2) {
-                                temp.push(`${secCon.key} between ? and ?`);
-                                values.push(secCon.value);
-                                values.push(secCon.value2);
-                            } else {
-                                temp.push(`${secCon.key}=?`);
-                                values.push(secCon.value);
-                            }
-                        });
-                        sqlAnd.push(temp.join(' or '));
-                    }
-                } else if(firCon.value2) {
-                    // between and
-                    sqlAnd.push(`${firCon.key} between ? and ?`);
-                    values.push(firCon.value);
-                    values.push(firCon.value2);
-                } else {
-                    // and
-                    sqlAnd.push(`${firCon.key}=?`);
-                    values.push(firCon.value);
-                }
-            });
-            if(sqlAnd.length > 0) {
-                sql += ` where ${sqlAnd.join(' and ')}`
-            }
+            let wSQL = createWhereSql(query);
+            sql += wSQL.sql;
+            values = values.concat(wSQL.values);
         }
         // 排序
         if(sort) {
@@ -88,6 +104,19 @@ const Factory = {
         }
         // 分页
         sql += ` limit ${page*count}, ${count}`;
+
+        return await Sqlext.exec(sql, values);
+    },
+    // 总条数
+    count: async (table, params) => {
+        let { query=[] } = params;
+
+        let sql = `select count(*) as count from ${table}`, values = [];
+        if(query.length > 0) {
+            let wSQL = createWhereSql(query);
+            sql += wSQL.sql;
+            values = values.concat(wSQL.values);
+        }
 
         return await Sqlext.exec(sql, values);
     },

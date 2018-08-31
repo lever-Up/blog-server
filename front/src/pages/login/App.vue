@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import request from '../../utils/request';
+    import utils from '../../utils';
     export default {
         data() {
             return {
@@ -21,7 +23,17 @@
                     username: this.username,
                     password: this.password
                 };
-                console.log(data)
+                console.log(data);
+                request('/blog/admin/login', {
+                    method: 'post',
+                    data: data
+                }).then( ret => {
+                    if(ret.code === 0) {
+                        utils.toHome();
+                    } else {
+                        this.$alert({msg: ret.msg})
+                    }
+                })
             }
         }
     }
